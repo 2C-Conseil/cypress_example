@@ -3,9 +3,13 @@
     "cy-open": "cypress open"
   },
   "devDependencies": {
-    "cypress": "^12.17.1"
+    "cypress": "^12.17.2",
+    "cypress-failed-log": "^2.10.0",
+    "cypress-log-to-output": "^1.1.2",
+    "install": "^0.13.0",
+    "npm": "^9.8.1"
   },
   "dependencies": {
-    "cypress-log-to-output": "^1.1.2"
+    "canvas": "^2.11.2"
   }
 }

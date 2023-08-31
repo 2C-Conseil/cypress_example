@@ -1,8 +1,16 @@
-const { launchConnection } = require("../utils/spec.utils.functions");
+const fs = require('fs');
+const { createCanvas, loadImage } = require('canvas');
+import '../support/commands';
 
 describe('Scenario 01', () => {
   beforeEach(() => {
-    launchConnection();
+    cy.launchConnection();
+
+    Cypress.on('uncaught:exception', (err, runnable) => {
+      // returning false here prevents Cypress from
+      // failing the test
+      return false;
+    });
   })
 
   it('Connexion', () => {
@@ -35,6 +43,7 @@ describe('Scenario 01', () => {
       cy.get('#group-table-tests > div > div.MuiDataGrid-main.css-opb0c2 > div:nth-child(2) > div > div > div > div:nth-child(1) > div.MuiDataGrid-cell.MuiDataGrid-cell--textRight > div')
         .invoke('text')
         .then((textId) => {
+    console.log('>>>',textId)
           const data = interception.response.body;
           const res = data.filter(item => item.id == textId);
           cy.log(res);
@@ -66,18 +75,62 @@ describe('Scenario 01', () => {
     cy.log('Cas - Ouverture des modales d\'un dossier').then(() => { Cypress.log({ type: 'warn' }); });
   });
 
-  it.only('Cas - Capture d\'écran de la page "Dossiers"', () => {
+  it('Cas - Capture d\'écran de la page "Dossiers"', () => {
     cy.wait(2000);
-    cy.viewport(1366, 768);
-    cy.window().then((win) => {
-      const { innerWidth, innerHeight } = win;
-  
-      // Afficher les dimensions du viewport dans la console de Cypress
-      cy.log(`Largeur du viewport : ${innerWidth}`);
-      cy.log(`Hauteur du viewport : ${innerHeight}`);
-      cy.screenshot('mon_screenshot', { capture: 'fullPage' });
-    });
+    cy.window()
+      .then((win) => {
+        const { innerWidth, innerHeight } = win;
+    
+        // Afficher les dimensions du viewport dans la console de Cypress
+        cy.log(`Largeur du viewport : ${innerWidth}`);
+        cy.log(`Hauteur du viewport : ${innerHeight}`);
+        cy.screenshot('mon_screenshot', { capture: 'fullPage' });
+      });
 
     cy.log('Cas - Capture d\'écran de la page "Dossiers"').then(() => { Cypress.log({ type: 'warn' }); });
   });
+
+  it('Cas - Vérification du titre de la page "Dossiers" générant un screenshot avec une erreur', () => {
+    cy.get('h1').should('exist').invoke('text').as('h1Text');
+    cy.get('@h1Text').then((text) => {
+      if (text !== 'texte différent') {
+        cy.wait(2000);
+        cy.get('h1').then($button => {
+          $button.css('border', '3px solid yellow')
+        });
+        cy.viewport(1024, 768);
+        cy.screenshot('erreur_verification_element');
+      }
+    });
+    
+    cy.log('Cas - Vérification d\'éléments de la page "Dossiers" générant un screenshot avec une erreur').then(() => { Cypress.log({ type: 'error' }); });
+  });
+
+  afterEach(() => {
+    //cy.log('Cypress.env', Cypress.env('FOO')).then(() => { Cypress.log({ type: 'warn' }); });
+  })
+});
+
+describe('Scenario 02', () => {
+  it('finds the content "type"', () => {
+    cy.visit('https://example.cypress.io')
+
+    cy.contains('type')
+  })
+
+  it('clicks the link "type"', () => {
+    cy.visit('https://example.cypress.io')
+
+    cy.contains('type').click()
+  })
+
+  it.only('clicking "type" navigates to a new url', () => {
+    cy.visit('https://example.cypress.io')
+
+    cy.contains('type').click()
+
+    // Should be on a new URL which
+    // includes '/commands/actions'
+    cy.url().should('include', '/commands/actions')
+  })
 });

@@ -1,25 +1,32 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+//import './index'
+
+function beforeConnection(url='/') {
+  cy.viewport(Cypress.env('viewportX'), Cypress.env('viewportY'));
+  cy.visit(url);
+  cy.log(`Page "Connexion"`);
+  cy.wait(500);
+  
+  cy.get('h1').first().contains('Accueil');
+  cy.get('#at2c-logo-icon-btn').should('exist');
+  cy.wait(1500);
+}
+
+Cypress.Commands.add('launchConnection', () => {
+  beforeConnection();
+
+  const email = Cypress.env('email');
+  const password = Cypress.env('password');
+  cy.get('#email').type(email);
+  cy.get('#password').type(password);
+  cy.wait(500);
+
+  cy.get('#btn-submit-connexion').click();
+  cy.wait(500);
+  cy.url().should('contain', '/dossiers');
+  cy.log(`Page "Dossiers"`);
+});
+
+Cypress.Screenshot.defaults({
+  screenshotOnRunFailure: true,
+  overwrite: true,
+});
