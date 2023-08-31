@@ -36,14 +36,13 @@ describe('Scenario 01', () => {
     cy.log('Cas - Navigation sur la page "Archives" et retour sur la page "Dossiers"').then(() => { Cypress.log({ type: 'warn' }); });
   });
 
-  it('Cas - Navigation sur la page "Tests"', () => {
+  it.only('Cas - Navigation sur la page "Tests"', () => {
     cy.intercept('GET', '**/Execution*').as('tests');
     cy.get('#item-folders-button-list').click();
     cy.wait('@tests', {timeout: 10000}).then((interception) => {
       cy.get('#group-table-tests > div > div.MuiDataGrid-main.css-opb0c2 > div:nth-child(2) > div > div > div > div:nth-child(1) > div.MuiDataGrid-cell.MuiDataGrid-cell--textRight > div')
         .invoke('text')
         .then((textId) => {
-    console.log('>>>',textId)
           const data = interception.response.body;
           const res = data.filter(item => item.id == textId);
           cy.log(res);
@@ -124,7 +123,7 @@ describe('Scenario 02', () => {
     cy.contains('type').click()
   })
 
-  it.only('clicking "type" navigates to a new url', () => {
+  it('clicking "type" navigates to a new url', () => {
     cy.visit('https://example.cypress.io')
 
     cy.contains('type').click()
@@ -132,5 +131,51 @@ describe('Scenario 02', () => {
     // Should be on a new URL which
     // includes '/commands/actions'
     cy.url().should('include', '/commands/actions')
+  })
+});
+
+describe('Scenario 03 - Filtrage des tests du dossier "CNAV"', () => {
+  it("E1 - Se connecter à la plateforme avec le compte prod@at2c.fr", () => {
+  })
+  
+  it("E2 - Vérifier que le dossier 'CNAV' est bien présent sur la page Dossiers", () => {
+  })
+  
+  it("E3 - Cliquer sur le dossier et vérifier que l'url d'arrivée contient bien /tests", () => {
+  })
+  
+  it("E4 - L'utilisateur doit pouvoir intéragir avec le bouton 'filtres' du tableau en sélectionnant le filtre 'Etiquettes' qui contient la valeur 'audio'", () => {
+  })
+  
+  it("E5 - Après avoir appliqué le filtre, 4 exécutions doivent être présentes à l'intérieur du tableau", () => {
+  })
+  
+  it("E6 - Vérifier qu'au moins la moitié de ces exécutions ont duré plus de 20 secondes", () => {
+  })
+});
+
+describe('Scenario 04 - Blocs de données de la page "Dashboard"', () => {
+  it("E1 - Se connecter à la plateforme avec le compte prod@at2c.fr", () => {
+  })
+  
+  it("E2 - Cliquer sur l'onglet 'Tableau de bord' dans la sidebar", () => {
+  })
+  
+  it("E3 - Vérifier que l'url d'arrivée contient bien /dashboards", () => {
+  })
+  
+  it("E4 - 4 blocs de données doivent être présents sur cette page", () => {
+  })
+  
+  it("E5 - Ces blocs doivent contenir chacun deux lignes de données", () => {
+  })
+  
+  it("E6 - La première ligne de données doit être en gras", () => {
+  })
+  
+  it("E7 - Les deux blocs de droite doivent être de couleur grise", () => {
+  })
+  
+  it("E8 - Si je reload la page, les blocs doivent toujours être affichés", () => {
   })
 });
