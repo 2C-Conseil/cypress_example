@@ -29,8 +29,10 @@ Cypress.Commands.add('launchConnection', () => {
 Cypress.Commands.add('launchConnectionProd', () => {
   cy.visit('http://localhost:3000');
 
-  cy.get('#email').type('prod@at2c.fr');
-  cy.get('#password').type('54hgR-bva2*!');
+  const email = Cypress.env('emailProd');
+  const password = Cypress.env('passwordProd');
+  cy.get('#email').type(email);
+  cy.get('#password').type(password);
   cy.wait(500);
 
   cy.get('#btn-submit-connexion').click();
