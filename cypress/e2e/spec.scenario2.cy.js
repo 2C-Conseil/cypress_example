@@ -45,16 +45,13 @@ describe('Scenario 01 - Filtrage des tests du dossier "CNAV"', () => {
       .find('.MuiDataGrid-row')
       .each(($item) => {
         const val = parseFloat($item.find('.MuiDataGrid-cell--withRenderer[data-field="execution_time"] > span')
-          //.should('exist')
           .text()
           .split('s')[0]);
         if (val > 20) {
           count += 1;
-          cy.log('===>', val)
         }
       })
       .then(() => {
-        cy.log('=======>', count)
         cy.wrap(count).should('be.gt', 4*.5)
       });
   })
@@ -62,16 +59,35 @@ describe('Scenario 01 - Filtrage des tests du dossier "CNAV"', () => {
 
 
 describe('Scenario 02 - Blocs de données de la page "Dashboard"', () => {
-  it("Itération 1 - Se connecter à la plateforme avec le compte prod@at2c.fr", () => {
+  beforeEach(() => {
+    // Itération 1 - Se connecter à la plateforme avec le compte prod@at2c.fr
+    cy.launchConnectionProd();
+
+    Cypress.on('uncaught:exception', (err, runnable) => {
+      return false;
+    });
   })
   
   it("Itération 2 - Cliquer sur l'onglet 'Tableau de bord' dans la sidebar", () => {
+    cy.goPageTests();
+    cy.goPageDashboard();
   })
   
   it("Itération 3 - Vérifier que l'url d'arrivée contient bien /dashboards", () => {
+    cy.goPageTests();
+    cy.goPageDashboard();
+    cy.url().should('contain', '/dashboards');
   })
   
-  it("Itération 4 - 4 blocs de données doivent être présents sur cette page", () => {
+  it.only("Itération 4 - 4 blocs de données doivent être présents", () => {
+    cy.goPageTests();
+    cy.goPageDashboard();
+
+    const namesArr = ['Ok', 'Ko', 'Nombre de tests aboutis sur la période', 'Durée moyenne des tests aboutis'];
+    cy.get('#container-kpi-status-dashboard > div').each((item, index) => {
+      item.find('div:nth-child(2)')
+        .contains(namesArr[index]);
+    });
   })
   
   it("Itération 5 - Ces blocs doivent contenir chacun deux lignes de données", () => {

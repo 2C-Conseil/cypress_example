@@ -46,6 +46,14 @@ Cypress.Commands.add('goPageTests', () => {
   cy.wait(500);
 });
 
+Cypress.Commands.add('goPageDashboard', () => {
+  cy.get('#link-sidebar-dashboards .MuiListItemText-root span')
+    .contains('Tableau de bord')
+    .closest('#link-sidebar-dashboards')
+    .click();
+  cy.wait(500);
+});
+
 Cypress.Commands.add('applyFilter', (filterChar) => {
   // bouton 'filtres'
   cy.get('button[aria-label="Afficher les filtres"]')
