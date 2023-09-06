@@ -77,6 +77,11 @@ Cypress.Commands.add('applyFilter', (filterChar) => {
   cy.wait(500);
 });
 
+Cypress.Commands.add('numberElementVerify', (number) => {
+  cy.get('#container-kpi-status-dashboard').children('div')
+    .should('have.length', number);
+});
+
 Cypress.Screenshot.defaults({
   screenshotOnRunFailure: true,
   overwrite: true,

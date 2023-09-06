@@ -13,31 +13,24 @@ describe('Scenario 01 - Filtrage des tests du dossier "CNAV"', () => {
     });
   })
   
-  it("Itération 2 - Vérifier que le dossier 'CNAV' est bien présent sur la page Dossiers", () => {
+  it.only("Itération 1", () => {
+    // Vérifier que le dossier 'CNAV' est bien présent sur la page Dossiers
     cy.get('#item-folders-list span').contains('CNAV');
-  })
-  
-  it("Itération 3 - Cliquer sur le dossier et vérifier que l'url d'arrivée contient bien /tests", () => {
+
     cy.goPageTests();
+
+    // Cliquer sur le dossier et vérifier que l'url d'arrivée contient bien "/tests"
     cy.url().should('contain', '/tests');
-  })
-  
-  it("Itération 4 - L'utilisateur doit pouvoir intéragir avec le bouton 'filtres' du tableau, en sélectionnant le filtre 'Etiquettes' avec la valeur 'audio'", () => {
-    cy.goPageTests();
+
+    // L'utilisateur doit pouvoir intéragir avec le bouton 'filtres' du tableau, en sélectionnant le filtre 'Etiquettes' avec la valeur 'audio'
     cy.applyFilter('audio');
-  })
-  
-  it("Itération 5 - Après avoir appliqué le filtre, 4 exécutions doivent être présentes à l'intérieur du tableau", () => {
-    cy.goPageTests();
-    cy.applyFilter('audio');
+
+    // Après avoir appliqué le filtre, 4 exécutions doivent être présentes à l'intérieur du tableau
     cy.get('.MuiDataGrid-row[role="row"]')
       .should("have.length", 4);
-  })
-  
-  it("Itération 6 - Vérifier qu'au moins la moitié de ces exécutions ont duré plus de 20 secondes", () => {
+
+    // Vérifier qu'au moins la moitié de ces exécutions ont duré plus de 20 secondes
     let count = 0;
-    cy.goPageTests();
-    cy.applyFilter('audio');
     cy.get('.page-content').scrollIntoView();
     cy.get('.MuiDataGrid-virtualScroller').scrollTo('100%', 0).as('scrollContainer');
     cy.wait(500);
@@ -54,7 +47,7 @@ describe('Scenario 01 - Filtrage des tests du dossier "CNAV"', () => {
       .then(() => {
         cy.wrap(count).should('be.gt', 4*.5)
       });
-  })
+  });
 });
 
 
@@ -68,37 +61,52 @@ describe('Scenario 02 - Blocs de données de la page "Dashboard"', () => {
     });
   })
   
-  it("Itération 2 - Cliquer sur l'onglet 'Tableau de bord' dans la sidebar", () => {
+  it("Itération 1", () => {
     cy.goPageTests();
+    // Cliquer sur l'onglet 'Tableau de bord' dans la sidebar
     cy.goPageDashboard();
-  })
-  
-  it("Itération 3 - Vérifier que l'url d'arrivée contient bien /dashboards", () => {
-    cy.goPageTests();
-    cy.goPageDashboard();
+    // Vérifier que l'url d'arrivée contient bien /dashboards
     cy.url().should('contain', '/dashboards');
-  })
-  
-  it.only("Itération 4 - 4 blocs de données doivent être présents", () => {
-    cy.goPageTests();
-    cy.goPageDashboard();
 
-    const namesArr = ['Ok', 'Ko', 'Nombre de tests aboutis sur la période', 'Durée moyenne des tests aboutis'];
+    // 4 blocs de données doivent être présents
+    cy.numberElementVerify(4);
+
+    const statusArr = ['Ok', 'Ko', 'Nombre de tests aboutis sur la période', 'Durée moyenne des tests aboutis'];
     cy.get('#container-kpi-status-dashboard > div').each((item, index) => {
-      item.find('div:nth-child(2)')
-        .contains(namesArr[index]);
+      expect(cy.wrap(item)).to.be.exist;
+
+      // Ces blocs doivent contenir chacun 2 lignes de données
+      cy.wrap(item).children('div:nth-child(1)').as('firstBlock');
+      cy.wrap(item).children('div:nth-child(2)').as('secondBlock');
+
+      cy.get('@firstBlock').invoke('text').then((child) => {
+        expect(parseInt(child)).to.be.greaterThan(0);
+      });
+
+      // La 1ère ligne de données doit être en gras
+      cy.get('@firstBlock').should(($block)=> {
+        expect($block).to.have.css('font-weight', '700');
+      });
+
+      cy.get('@secondBlock')
+        .contains(statusArr[index]);
+
+      // Les deux blocs de droite doivent être de couleur grise
+      if (index > 1) {
+        cy.wrap(item).should(($block)=> {
+          expect($block).to.have.css('background-color', 'rgb(204, 204, 204)');
+        });
+      }
     });
   })
   
-  it("Itération 5 - Ces blocs doivent contenir chacun deux lignes de données", () => {
-  })
-  
-  it("Itération 6 - La première ligne de données doit être en gras", () => {
-  })
-  
-  it("E7 - Les deux blocs de droite doivent être de couleur grise", () => {
-  })
-  
-  it("E8 - Si je reload la page, les blocs doivent toujours être affichés", () => {
+  it.only("Itération 2", () => {
+    cy.goPageTests();
+    // Cliquer sur l'onglet 'Tableau de bord' dans la sidebar
+    cy.goPageDashboard();
+
+    // Si je reload la page, les blocs doivent toujours être affichés
+    cy.reload();
+    cy.numberElementVerify(4);
   })
 });
