@@ -100,7 +100,7 @@ describe('Scenario 02 - Blocs de données de la page "Dashboard"', () => {
     });
   })
   
-  it.only("Itération 2", () => {
+  it("Itération 2", () => {
     cy.goPageTests();
     // Cliquer sur l'onglet 'Tableau de bord' dans la sidebar
     cy.goPageDashboard();
