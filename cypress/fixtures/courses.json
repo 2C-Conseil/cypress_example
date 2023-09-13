@@ -1,0 +1,76 @@
+[
+  {
+      "_id": "62f4c4d331c06fe481691daf",
+      "title": "Algorithmes et structures de données",
+      "author": "581a2abc19164be7e8b6fea7",
+      "collectionId": "3ad51594-a717-4131-9554-804b814f1c90",
+      "published": true,
+      "publishingRequest": false,
+      "publishedLanding": true,
+      "createdAt": "2022-08-11T08:58:59.260Z",
+      "updatedAt": "2023-09-13T08:57:34.253Z",
+      "__v": 0,
+      "infos": {
+          "keypoints": [
+              "Comprendre les arbres et les graphes",
+              "Comprendre les listes chaînées",
+              "Utiliser les algorithmes de tri",
+              "Maîtriser les tables de hachage",
+              "Apprendre les algorithmes de recherche",
+              "Apprendre le concept de récursivité",
+              "Maîtriser les algorithmes de path finding",
+              "Maîtriser les arbres binaires",
+              "Apprendre la technique du diviser pour régner",
+              "Utiliser les piles"
+          ],
+          "longDescription": "L'algorithmie est une discipline qui s'est vite rendue indispensable à mesure que l'informatique s'est développée. Présente dans toutes les disciplines, elle est à l'origine de la résolution de problèmes complexes impliquant de plus en plus de données et nécessitant de plus en plus de calculs.\n\nL'algorithmie est également souvent utilisée en entretien d'embauche par les plus grandes entreprises et sa maîtrise est essentielle pour passer la plupart des tests techniques.\n\nEn informatique l'algorithmie est liée aux structures de données. Une structure de données est une façon d'organiser des collections de données. Chaque structure de donnée a ses avantages et inconvénients qu'il faut connaitre. Il faut également maîtriser les algorithmes qui lui sont applicables.\n\nMême si la plupart des algorithmes sont souvent implémentés directement dans les langages ou dans des librairies, l'apprentissage des principales structures de données et de leurs algorithmes permet de développer sa capacité à résoudre des problèmes complexes de façon élégante et performante. Cela fera de vous un meilleur développeur quel que soit votre domaine de compétence.",
+          "prerequisites": [
+              "Connaître un langage de programmation",
+              "Avoir des bases en JavaScript est un plus"
+          ],
+          "description": "L'algorithmie et les structures de données sont deux domaines qui sont intrinsèquement liés. Un algorithme s'applique sur certaines structures de données et une structure de données permet l'utilisation de certains algorithmes. L'étude de l'algorithmie et des structures permet de développer sa capacité à résoudre des problèmes complexes et à mieux évaluer la performance des programmes. Elle permet de beaucoup faire travailler sa logique. C'est également un sujet qui est souvent utilisé dans le monde du travail notamment pour les entretiens techniques des entreprises technologiques. ",
+          "included": [
+              {
+                  "visual": "/assets/images/technologies/algorithm/included-1.png",
+                  "title": "Algorithmes de tri",
+                  "description": "Les algorithmes de tri sont un très bon moyen pour se familiariser avec la pratique algorithmique. Ils permettent de comprendre la complexité Grand 0 et les principales stratégies algorithmiques, par exemple la récursion et diviser pour régner. Les tris peuvent concerner aussi bien les tableaux, que les listes chaînés ou encore les arbres binaires."
+              },
+              {
+                  "visual": "/assets/images/technologies/algorithm/included-2.png",
+                  "title": "Les arbres binaires",
+                  "description": "L'arbre binaire est une famille de structures de données beaucoup utilisée en algorithmie. Il en existe différentes formes qui ont chacune leurs spécificités et leurs algorithmes. Ils sont souvent utilisés dans des situations où les tris et les recherches sont importants."
+              },
+              {
+                  "visual": "/assets/images/technologies/algorithm/included-3.png",
+                  "title": "Les graphes",
+                  "description": "Les graphes sont des structures de données qui sont utilisées notamment pour les problématique de réseau car ils permettent des relations multiples entre les différents éléments qui composent le réseau. Ces réseaux peuvent être de tout type par exemple un réseau de communication (Internet) ou encore un réseau social (Facebook)."
+              }
+          ],
+          "projects": [
+              {
+                  "poster": "/assets/images/technologies/algorithm/project1.png",
+                  "title": "Visualisation de A*",
+                  "description": "Dans ce projet, nous allons utiliser notre algorithme A* pour trouver le chemin le plus cours sur une grille avec des obstacles. Nous utiliserons pour cela JavaScript et Canvas.",
+                  "video": "https://dyma-videos-landing.s3.fr-par.scw.cloud/l-p1-astar.mp4"
+              }
+          ],
+          "shortDescription": "Théorie et pratique approfondie"
+      },
+      "version": "",
+      "index": 17,
+      "theme": "algo-theme",
+      "visuals": {
+          "certification296x144": "/assets/images/technologies/algorithm/algorithm-certification296x144.png",
+          "icon": "/assets/images/technologies/algorithm/algorithm240x240.png",
+          "visual1920x450": "/assets/images/technologies/algorithm/algorithm1920x450.png",
+          "visual1920x500": "/assets/images/technologies/algorithm/algorithm1920x500.png",
+          "visual296x135": "/assets/images/technologies/algorithm/algorithm296x135.png",
+          "visual400x400": "/assets/images/technologies/algorithm/algorithm400x400.png"
+      },
+      "nbrOfChapters": 17,
+      "nbrOfLessons": 86,
+      "totalTimeCourse": 15367772,
+      "totalTimeQuiz": 1593874,
+      "totalTimeVideo": 133906219
+  }
+]
