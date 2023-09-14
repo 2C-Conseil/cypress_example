@@ -43,6 +43,7 @@ describe('Scenario 01 - Comparaison de données provenant d\'une requête et d\'
       cy.fixture("courses").then(fixture => {
         expect([res.response.body[0]]).to.deep.eq(fixture);
 
+        // Comparaison de l'affichage du titre, requête et fixture
         cy.get('.popular-tech-container > a').first().find('h3')
           .scrollIntoView()
           .contains(res.response.body[0].title);
