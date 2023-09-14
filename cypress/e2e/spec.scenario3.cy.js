@@ -44,12 +44,13 @@ describe('Scenario 01 - Comparaison de données provenant d\'une requête et d\'
         expect([res.response.body[0]]).to.deep.eq(fixture);
 
         // Comparaison de l'affichage du titre, requête et fixture
+        const resTitle = res.response.body[0].title;
         cy.get('.popular-tech-container > a').first().find('h3')
           .scrollIntoView()
-          .contains(res.response.body[0].title);
-        expect(res.response.body[0].title).to.deep.eq(fixture[0].title);
-        cy.get('h3').should('include.text', res.response.body[0].title);
-        cy.get('h3').contains(res.response.body[0].title);
+          .contains(resTitle);
+        expect(resTitle).to.deep.eq(fixture[0].title);
+        cy.get('h3').should('include.text', resTitle);
+        cy.get('h3').contains(resTitle);
       });
     });
   })
