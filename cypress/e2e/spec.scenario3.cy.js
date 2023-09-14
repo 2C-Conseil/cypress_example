@@ -47,6 +47,8 @@ describe('Scenario 01 - Comparaison de données provenant d\'une requête et d\'
           .scrollIntoView()
           .contains(res.response.body[0].title);
         expect(res.response.body[0].title).to.deep.eq(fixture[0].title);
+        cy.get('h3').should('include.text', res.response.body[0].title);
+        cy.get('h3').contains(res.response.body[0].title);
       });
     });
   })
